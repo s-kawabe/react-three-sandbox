@@ -12,7 +12,7 @@ yanr dev
 ```
 
 (そのままインストールするとバージョンの違いでエラーでる？)
-→ 現状のpackage.json通りにやる必要がある
+→ このリポジトリのpackage.json通りにやる必要がある
 ```
 yarn add three @react-three/fiber @react-three/drei gsap
 ```
@@ -27,28 +27,26 @@ yarn add -D @types/three
 ## knowladge
 
 ### scene
-sceneインスタンスの作成
-
-e.g.
-```ts
-const scene = new THREE.Scene()
-```
+「土台、舞台」
+必ず必要な要素で、モノをおくためのところ(?)
 
 ### camera
-cameraインスタンスの作成
+「カメラ」
+3Dオブジェクトをどう捉えるか。
 
-e.g.
-```ts
-const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-```
+- Camera
+- ArrayCamera
+(複数のカメラを使って特定のキャンバス領域をレンダリング - マリオカートなど)
+- Perspective(視点)Camera
+(よく使う、現実の遠近法に近い表現)
+- OrthographicCamera
+(遠いものと近いものが同じ大きさ？)
 
-### light
-「光」
-- ambientLight
-- directionalLight
-「shader」部分にて説明している
+などがある
 
 ### renderer
+「変換器」
+カメラで撮影した対象を投影するために必要なモジュール
 
 ### geometry
 「形状」
@@ -63,9 +61,14 @@ Three.jsで扱えるジオメトリには以下のようなものがある
 - ドーナツ形状
 
 ### material
-> materials
-> Generally materials will be defined, allowing different portions of the mesh to use different shaders when rendered.
-通常、マテリアルが定義され、メッシュのさまざまな部分がレンダリング時にさまざまなシェーダーを使用できるようになります。
+「素材」
+
+色や画像などのテクスチャとかのこと。
+Geometry(骨組み)に対してmaterial(素材)を適用して、mesh化することで３Dオブジェクトを生成する。
+生成したmesh達を組み合わせたり、適切にlightを当てたりして、カメラの位置を調整することによって
+3D空間にいい感じに表示して見せる感じ。
+
+`meshXXXXMaterial` というオブジェクトが複数用意されているが、これは光沢感だったり質感などの差が関係している。
 
 ### mesh
 > 三角形ポリゴンメッシュベースのオブジェクトを表すクラス。SkinnedMeshなどの他のクラスのベースとしても機能します。
@@ -111,19 +114,37 @@ const sphere = new THREE.Mesh( geometry, material );
 scene.add( sphere );
 ```
 
-### shader
+### light
+「光」
+次のように種類が色々ある
+
+- アンビエント照明
+  (アンビエントライト、また、拡散環境光として知られているライトは 、シーン周囲すべてに存在するライトであり、特定のソースオブジェクトから放出されていません。シーンの全体的な見た目と明るさに重要な影響を与えます。)
+- ポイントライティング
+- スポットライト
+- エリア照明
+## Technique
+
+### 環境マッピング
+対象オブジェクトに対して背景を反映させるための手法。(SphereGeometryに地球の背景を適用して地球儀ができたりする)
+
+### StereoCamera
+2つのカメラを用いて「視差効果」をもたらす。
+よりリアルで奥行きのある表現が可能になる。　
+
+### OrbitControls
+常に対象を捉えるカメラ。
+マウスムーブによってカメラを移動できたりする？
+
+### Animation
+
+## Supplement
+
+### (shader)
 https://en.wikipedia.org/wiki/Shader
 https://en.wikipedia.org/wiki/Shading
 
 シェーダー、シェーディングとは暗さレベルを変化させて3Dモデルまたはイラストに対し、奥行きの感覚を表現する手法の総称(?)
 シェーディングはオブジェクトの表面での光の局所的な動作を近似しようとする。
 シェーディングは、シェーダーと呼ばれるプログラムによってレンダリングプロセス中に実行されます。
-照明の種類には次のようなものがある
-- アンビエント照明
-- ポイントライティング
-- スポットライト
-- エリア照明
-
-### Canvas
-
-### WebGL
+照明の種類についてはlightの部分に記載。
