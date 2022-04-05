@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   return (
       <Canvas id="three-canvas-container">
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<div>...loading</div>}>
           <Three />          
         </Suspense>
       </Canvas>
