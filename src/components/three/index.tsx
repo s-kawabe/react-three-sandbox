@@ -45,7 +45,9 @@ const Three = () => {
       </mesh>
 
       {/* Abmient light */}
-      <ambientLight args={["#ffffff", 1]} />
+      <ambientLight args={["#ffffff", 0.25]} />
+      {/* Directional light */}
+      <directionalLight args={["#ffffff", 1]} position={[-4, 1, 0]} />
     </>
   )
 }
