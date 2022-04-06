@@ -5,7 +5,8 @@ import './App.css'
 
 function App() {
   return (
-      <Canvas id="three-canvas-container">
+      // shadows: boolean meshの影を表現 
+      <Canvas id="three-canvas-container" shadows>
         <Suspense fallback={<div>...loading</div>}>
           <Three />          
         </Suspense>

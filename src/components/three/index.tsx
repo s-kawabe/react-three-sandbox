@@ -1,7 +1,8 @@
-import { OrbitControls, OrbitControlsProps, PerspectiveCamera } from "@react-three/drei"
+import { Environment, OrbitControls, OrbitControlsProps, PerspectiveCamera } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { angleToRadians } from "../../utils"
+import * as THREE from "three"
 
 // type Args = Parameters<typeof OrbitControls>[number]
 // type ArgRef = Omit<Args, keyof OrbitControlsProps>
@@ -33,21 +34,29 @@ const Three = () => {
       <OrbitControls ref={orbitControlsRef} minPolarAngle={angleToRadians(60)} maxPolarAngle={angleToRadians(80)} />
 
       {/* Ball */}
-      <mesh position={[0, 0.5, 0]}>
+      <mesh position={[0, 0.5, 0]} castShadow>
         <sphereGeometry args={[0.5, 32, 32]} />
         <meshStandardMaterial color="#ffffff" />
       </mesh>
 
       {/* Floor */}
-      <mesh rotation={[-(angleToRadians(90)), 0, 0]}>
+      <mesh rotation={[-(angleToRadians(90)), 0, 0]} receiveShadow>
         <planeGeometry args={[7, 7]}  />
         <meshStandardMaterial color="#1ea3d8" />
       </mesh>
 
       {/* Abmient light */}
       <ambientLight args={["#ffffff", 0.25]} />
-      {/* Directional light */}
-      <directionalLight args={["#ffffff", 1]} position={[-4, 1, 0]} />
+      {/* spotLight */}
+      <spotLight args={["#ffffff", 1.5, 7, angleToRadians(45), 0.4]} position={[-3, 1, 0]} castShadow />
+
+      {/* Environment */}
+      <Environment background>
+        <mesh>
+          <sphereGeometry args={[50, 100, 100]} />
+          <meshBasicMaterial color="#2266cc" side={THREE.BackSide} />
+        </mesh>
+      </Environment>
     </>
   )
 }
