@@ -3,6 +3,8 @@ import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { angleToRadians } from "../../utils"
 import * as THREE from "three"
+import gsap from "gsap"
+import { Power2, Bounce } from "gsap/src/all"
 
 // type Args = Parameters<typeof OrbitControls>[number]
 // type ArgRef = Omit<Args, keyof OrbitControlsProps>
@@ -10,8 +12,11 @@ import * as THREE from "three"
 
 const Three = () => {
   const orbitControlsRef = useRef<any>(null)
-  // エフェクトの実行、コントロールの更新など、レンダリングされたすべてのフレームでコードが実行される
-  // コールバック関数は、フレームがレンダリングされる直前に呼び出されます。
+  const ballRef = useRef<any>(null)
+  
+  // Code to move the camera arround
+  // (エフェクトの実行、コントロールの更新など、レンダリングされたすべてのフレームでコードが実行される
+  // コールバック関数は、フレームがレンダリングされる直前に呼び出されます。)
   useFrame((state) => {
     if(!!orbitControlsRef.current) {
       const  { x, y } = state.mouse
@@ -21,12 +26,30 @@ const Three = () => {
     }
   })
 
+  // Animation
   useEffect(() => {
-    if(!!orbitControlsRef.current) {
-      console.log(orbitControlsRef.current)
+    if(!!ballRef.current) {
+      console.log(ballRef.current)
+
+      // const timeline = gsap.timeline()
+
+      // x-axis motion
+      gsap.to(ballRef.current.position, {
+        x: 2,
+        duration: 2,
+        ease: Power2.easeOut
+      })
+
+      // y-axis motion
+      gsap.to(ballRef.current.position, {
+        y: 0.5,
+        duration: 1,
+        ease: Bounce.easeOut
+      })
+
     }
-  }, [orbitControlsRef.current])
- 
+  }, [ballRef.current])
+
   return (
     <>
       {/* Camera */}
@@ -34,9 +57,9 @@ const Three = () => {
       <OrbitControls ref={orbitControlsRef} minPolarAngle={angleToRadians(60)} maxPolarAngle={angleToRadians(80)} />
 
       {/* Ball */}
-      <mesh position={[0, 0.5, 0]} castShadow>
+      <mesh position={[-2, 2.5, 0]} castShadow ref={ballRef}>
         <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial color="#ffffff" />
+        <meshStandardMaterial color="#ffffff" metalness={0.6} roughness={0.2} />
       </mesh>
 
       {/* Floor */}

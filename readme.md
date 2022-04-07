@@ -144,6 +144,7 @@ scene.add( sphere );
 マウスムーブによってカメラを移動できたりする？
 
 ### castShadow / receiveShadow
+meshオブジェクトに指定する
 影を適用したいオブジェクトにはcastShadow, castShadowを適用したオブジェクトに
 光が当たった時実際に影が反映される地面や壁のようなオブジェクトにはreceiveShadowを適用。
 さらにCanvasコンポーネントで`shadows={true}`にする
