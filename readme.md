@@ -148,6 +148,11 @@ meshオブジェクトに指定する
 影を適用したいオブジェクトにはcastShadow, castShadowを適用したオブジェクトに
 光が当たった時実際に影が反映される地面や壁のようなオブジェクトにはreceiveShadowを適用。
 さらにCanvasコンポーネントで`shadows={true}`にする
+
+### gltf extention
+vscodeの拡張機能。
+.gltf ファイルを選択状態で「Preview 3D Model」を選択すると3Dモデルのプレビューができる。
+
 ### Animation
 
 ## Supplement

@@ -1,4 +1,4 @@
-import { Environment, OrbitControls, OrbitControlsProps, PerspectiveCamera } from "@react-three/drei"
+import { Environment, OrbitControls, OrbitControlsProps, PerspectiveCamera, useTexture } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { angleToRadians } from "../../utils"
@@ -11,6 +11,8 @@ import { Power2, Bounce } from "gsap/src/all"
 // type Ref = NonNullable<ArgRef["ref"]>
 
 const Three = () => {
+  const [colorMapTexture, dispMapTexture] = useTexture(["aa", "bb"])
+
   const orbitControlsRef = useRef<any>(null)
   const ballRef = useRef<any>(null)
   
@@ -64,7 +66,7 @@ const Three = () => {
 
       {/* Floor */}
       <mesh rotation={[-(angleToRadians(90)), 0, 0]} receiveShadow>
-        <planeGeometry args={[7, 7]}  />
+        <planeGeometry args={[20, 20]}  />
         <meshStandardMaterial color="#1ea3d8" />
       </mesh>
 
