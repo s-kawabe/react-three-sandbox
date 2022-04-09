@@ -153,6 +153,14 @@ meshオブジェクトに指定する
 vscodeの拡張機能。
 .gltf ファイルを選択状態で「Preview 3D Model」を選択すると3Dモデルのプレビューができる。
 
+### gltfをThree.jsで描画する方法
+1. gltfファイルをglbファイルに変換
+   1. `npm install -g gltf-pipeline`
+   2. gltfファイルのあるディレクトリに移動
+   3. `gltf-pipeline -i scene.gltf -o model.glb --draco.compressionLevel 1- -d -b`
+2. glbファイルを元に.jsファイルを生成
+   1. `npx gltfjsx model.glb -T --shadows`
+3. 生成されたjsファイルをReactで読み込む
 ### Animation
 
 ## Supplement

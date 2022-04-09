@@ -5,14 +5,13 @@ import { angleToRadians } from "../../utils"
 import * as THREE from "three"
 import gsap from "gsap"
 import { Power2, Bounce } from "gsap/src/all"
+import Stone from "./Stone"
 
 // type Args = Parameters<typeof OrbitControls>[number]
 // type ArgRef = Omit<Args, keyof OrbitControlsProps>
 // type Ref = NonNullable<ArgRef["ref"]>
 
 const Three = () => {
-  const [colorMapTexture, dispMapTexture] = useTexture(["aa", "bb"])
-
   const orbitControlsRef = useRef<any>(null)
   const ballRef = useRef<any>(null)
   
@@ -63,6 +62,9 @@ const Three = () => {
         <sphereGeometry args={[0.5, 32, 32]} />
         <meshStandardMaterial color="#ffffff" metalness={0.6} roughness={0.2} />
       </mesh>
+
+      {/* Stone */}
+      <Stone />
 
       {/* Floor */}
       <mesh rotation={[-(angleToRadians(90)), 0, 0]} receiveShadow>
